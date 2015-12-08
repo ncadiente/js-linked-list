@@ -24,42 +24,31 @@ function linkedListGenerator(){
     value : null,
     next : null
   };
-  var head;
-  var tail;
+  var head = null;
+  var tail = null;
 
 
   module.getHead = function() {
-    if (this.value === undefined){
-      return null;
-    }
-      return this;
+      return head;
     };
 
   module.getTail = function() {
-    if (this.value === undefined){
-      return null;
-    }
-    if (this.next === null){
-      return this;
-    }else{
-      this.next.getTail();
-    }
+    return tail;
   };
 
   module.add = function(newValue) {
-    if (this.value === undefined){
-      this.value = newValue;
-      this.next = null;
-      return this;
-    }
-    if (this.next === null){
-      var newNode = node;
-      newNode.value = newValue;
-      newNode.next = null;
-      this.next = newNode;
-      return newNode;
-    }else{
-      this.next.add();
+    var newNode = {
+      value : newValue,
+      next : null
+    };
+    if (head === null && tail === null){
+      head = newNode;
+      tail = newNode;
+      return tail;
+    } else {
+    tail.next = newNode;
+    tail = newNode;
+    return tail;
     }
   };
 
@@ -78,4 +67,4 @@ function linkedListGenerator(){
   return module;
 }
 
-console.log(example.linkedListGenerator.getTail);
+//console.log(example.linkedListGenerator.getTail);
