@@ -26,6 +26,18 @@ function linkedListGenerator(){
   };
   var head = null;
   var tail = null;
+  var position = 0;
+
+  function traverse(list){
+    if (list.next === undefined) {
+      return null;
+    }
+    if (list.next === null){
+      return this;
+    }
+    position++;
+    traverse(this.next);
+  }
 
 
   module.getHead = function() {
@@ -52,19 +64,60 @@ function linkedListGenerator(){
     }
   };
 
-  module.remove = function() {
+  module.get = function(index) {
+    var got = this.getHead();
+    var position = 0;
+    while (position < index){
+      position ++;
+      if (got.next === null) {
+        return false;
+      }
+      got = got.next;
+    }
+    return got;
+  };
+
+  module.remove = function(index) {
+    var toRemove = this.get(index);
+    if (toRemove === false){
+      return false;
+    }
+    if (toRemove === head){
+      head = toRemove.next;
+      return true;
+    }
+    if (toRemove === tail){
+      tail = this.get(index - 1);
+      tail.next = null;
+      return true;
+    }
+    if (toRemove !== head && toRemove !== tail){
+      this.get(index - 1).next = this.get(index + 1);
+    }
+
 
   };
 
-  module.get = function() {
 
-  };
+  module.insert = function(value, index) {
+    var toShift = this.get(index);
+    node.value = value;
+    node.next = toShift;
 
-  module.insert = function() {
-
+    if (this.get(index) === false) {
+      return false;
+    }
+    if (index === 0){
+      head = node;
+      return true;
+    } else {
+    console.log(this.getHead());
+    this.get(index-1).next = node;
+    return true;
+    }
   };
 
   return module;
 }
 
-//console.log(example.linkedListGenerator.getTail);
+linkedListGenerator().get(0);
